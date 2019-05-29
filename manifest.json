@@ -1,0 +1,61 @@
+{
+    "name": "酷嗨- 浏览器助手",
+    "version": "1.0.1",
+    "description": "用一个漂亮丰富的页面替换您的新标签页。新标签页包含浏览器便捷操作、背景随心切换下载、时间提醒和聚合搜索等贴心功能",
+	"manifest_version": 2,
+    "icons":
+    {
+        "16": "img/coolhii_icon.png",
+        "48": "img/coolhii_icon.png",
+        "128": "img/coolhii_icon.png"
+    },
+    "background":{"page": "background.html"},
+    "browser_action": {"defaule_title": "酷嗨 - 浏览器助手"},
+    "content_scripts": [{	
+		"matches": ["<all_urls>"],
+        "js": ["js/plugins/keymaster.js","js/content_script.js"],
+        "run_at": "document_start"
+    }],
+    "permissions":
+    [
+		"storage",
+		"tabs",
+		"contextMenus",
+		"http://*/*",
+        "https://*/*",
+        "webRequestBlocking",
+        "webRequest"
+    ],
+    "commands":{
+		"quick-open-navigation":{
+			"suggested_key":{
+				"default": "Ctrl+Left",
+				"mac": "Ctrl+Left"
+			},
+			"description": "Ctrl+Left，可直接调出导航"
+		},
+		"quick-open-website-up":{
+			"suggested_key":{
+				"default": "Ctrl+Up",
+				"mac": "Ctrl+Up"
+			},
+			"description": "Ctrl+Up，快捷打开设置的网页"
+		},
+		"quick-open-website-down":{
+			"suggested_key":{
+				"default": "Ctrl+Down",
+				"mac": "Ctrl+Down"
+			},
+			"description": "Ctrl+Down，快捷打开设置的网页"
+		},
+		"quick-open-website-right":{
+			"suggested_key":{
+				"default": "Ctrl+Right",
+				"mac": "Ctrl+Right"
+			},
+			"description": "Ctrl+Right，快捷打开设置的网页"
+		}
+    },
+    "web_accessible_resources": ["img/*","js/*","css/*"],
+	"homepage_url": "http://www.coolhii.com"
+}
