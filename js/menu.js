@@ -1,6 +1,7 @@
 (function(){
 	//右键菜单
 	var menu = {"selection":1,"image":2,"link":3,"page":4};
+	
 	menu.getData=function(unionMenus, context, menuItemId){  //通过menuItemId查找数据
 		for(var i=0;i<unionMenus.length;i++){
 			if("coolhii_"+context+"_"+unionMenus[i].identification == menuItemId){
@@ -9,53 +10,42 @@
 		}
 		return new Array();
 	}
+	
+	var isCreateMenuComplete = true;
 	menu.create=function(){  //生成菜单
-		var isImageCreate = false;
+		isCreateMenuComplete = false;
 		chrome.contextMenus.removeAll(function() {
 			var parentId = chrome.contextMenus.create({
 				title: "酷嗨- 浏览器助手",
 		        contexts: ["selection","image","link","page"],
 			});
-			//直接读取存储种的数据--------
-			chrome.storage.sync.get(["selections"], function(result) {
-				var obj = result.selections;
-				if(obj && obj.length>0){
-					menu.createMenuItem(obj, ["selection"], parentId, clickItem);
-				}
-			});
-			chrome.storage.sync.get(["images"], function(result) {
-				var obj = result.images;
-				if(obj && obj.length>0){
-					menu.createMenuItem(obj, ["image"], parentId, clickItem);
-				}
-			});
-			chrome.storage.sync.get(["links"], function(result) {
-				var obj = result.links;
-				if(obj && obj.length>0){
-					menu.createMenuItem(obj, ["link"], parentId, clickItem);
-				}
-			});
-			chrome.storage.sync.get(["pages"], function(result) {
-				var obj = result.pages;
-				if(obj && obj.length>0){
-					menu.createMenuItem(obj, ["page"], parentId, clickItem);
-				}
-			});
-			//直接读取存储种的数据--------
+			//直接使用当前全局window中的数据
+			//读取本地数据为异步操作，会出现时序错误
+			menu.createMenuItem(window.selections, ["selection"], parentId, clickItem);
+			menu.createMenuItem(window.images, ["image"], parentId, clickItem);
+			menu.createMenuItem(window.links, ["link"], parentId, clickItem);
+			menu.createMenuItem(window.pages, ["page"], parentId, clickItem);
+			isCreateMenuComplete = true;
+			//直接使用当前全局window中的数据
 	   });
 	};
 	menu.createMenuItem=function(menus, context, parentId, clickItem){  //生成具体菜单
+		if(!parentId || !context[0]){
+			return false;
+		}
 		for(var i=0; i<menus.length; i++){
-			chrome.contextMenus.create({
-				title: menus[i].name,
-		        contexts: context,
-		        id: "coolhii_"+context[0]+"_"+menus[i].identification,
-		        parentId:parentId,
-		        onclick: function(data,item){
-		        	data.addedCoolHiiContext = context[0]; 
-		        	clickItem(data,item);
-		        }
-			})
+			if(!!menus[i].name && !!menus[i].identification){
+				chrome.contextMenus.create({
+					title: menus[i].name,
+			        contexts: context,
+			        id: "coolhii_"+context[0]+"_"+menus[i].identification,
+			        parentId:parentId,
+			        onclick: function(data,item){
+			        	data.addedCoolHiiContext = context[0]; 
+			        	clickItem(data,item);
+			        }
+				})
+			}
 		}
 	};
 
@@ -130,7 +120,9 @@
 	
 	//轮询监听右键变化
 	setInterval(function(){
-		menu.create();
+		if(isCreateMenuComplete){
+			menu.create();
+		}
 	},200);
 	
 	//isNewWindow = 0:新窗口

@@ -1,14 +1,17 @@
 (function (){
 	
-	//*********************设置信息 - 全局****
-	window.serverUrl = "http://127.0.0.1:8080/coolhii/";
-	//*********************设置信息 - 全局****
+	//*********************设置信息 - 全局**********************
+	var serverUrl = "http://www.coolhii.com/";
+	var currentVersionNo = 101;
+	//*********************设置信息 - 全局**********************
+	
+	window.serverUrl = serverUrl;
 	
 	//插件相关操作
 	chrome.runtime.onInstalled.addListener(function (details) {
 		if (details && details.reason && details.reason == 'install'){
 			createTab();
-			//安装完成，安装数+1
+			updateNumByType(1);
 		};
 	});
 	
@@ -200,4 +203,37 @@
 			clearInterval(checkServerHaveInterval);
 		}
 	},100);
+	
+	//检查更新
+	function upgrade(){
+		$.ajax({
+			"url":serverUrl + "check_upgrade",
+			"type":"POST",
+			"dataType":"json",
+			"async":true,
+			success:function(data){
+				if(!!data && parseInt(data.chrome_version)> currentVersionNo){
+					chrome.tabs.create({url: serverUrl+"plugin"});
+				}
+			},
+			error:function(e){},
+			complete:function(){}
+		});
+	}
+	upgrade();
+	
+	function updateNumByType(type){
+		$.ajax({
+			"url":serverUrl + "update_num",
+			"type":"GET",
+			"data":{"type":type},
+			"dataType":"json",
+			"async":true,
+			success:function(data){},
+			error:function(e){},
+			complete:function(){}
+		});
+	}
+	updateNumByType(2);
+	
 })();

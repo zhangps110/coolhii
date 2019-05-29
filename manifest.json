@@ -1,17 +1,17 @@
 {
     "name": "酷嗨- 浏览器助手",
     "version": "1.0.1",
-    "description": "用一个漂亮丰富的页面替换您的新标签页。新标签页包含浏览器便捷操作、背景随心切换下载、时间提醒和聚合搜索等贴心功能",
+    "description": "扩展右键菜单(页面菜单、划词菜单、图片菜单、链接菜单)，可自由设置、组合和排序菜单项。同时为浏览器增加5个快捷键操作并提供一个精简的网址导航",
 	"manifest_version": 2,
     "icons":
     {
-        "16": "img/coolhii_icon.png",
-        "48": "img/coolhii_icon.png",
-        "128": "img/coolhii_icon.png"
+        "16": "img/logo-2.png",
+        "48": "img/logo-2.png",
+        "128": "img/logo-2.png"
     },
     "background":{"page": "background.html"},
     "browser_action": {"defaule_title": "酷嗨 - 浏览器助手"},
-    "content_scripts": [{	
+    "content_scripts": [{
 		"matches": ["<all_urls>"],
         "js": ["js/plugins/keymaster.js","js/content_script.js"],
         "run_at": "document_start"

@@ -1,10 +1,12 @@
 window.selections = [
+	{"identification":"selection-panXiaokesosoSearch","name":"小可搜搜", "url":"https://www.xiaokesoso.com/s/search?q={%word%}&currentPage=1"},
 	{"identification":"selection-baiduSearch","name":"百度搜索", "url":"https://www.baidu.com/s?wd={%word%}&ie=utf-8"},
-	{"identification":"selection-baiduBaike","name":"百度百科", "url":"https://baike.baidu.com/item/{%word%}"}
+	{"identification":"selection-wordTranslationBaidu","name":"百度划词翻译", "url":"https://fanyi.baidu.com/?#en/zh/{%word%}"}
 ];
 
 window.images = [
-	{"identification":"image-identifyImagesGoogle","name":"google识图", "url":"http://www.google.com/searchbyimage?image_url={%url%}"},
+	{"identification":"image-pickupImageUrl","name":"提取图片地址", "url":""},
+	{"identification":"image-newWindowsOpenUrl","name":"图片新窗口打开", "url":""},
 	{"identification":"image-identifyImagesBaidu","name":"百度识图(链接已复制)", "url":"http://image.baidu.com/?fr=shitu"}
 ];
 
@@ -14,8 +16,9 @@ window.links = [
 ];
 
 window.pages = [
-	{"identification":"page-chromeOpenHistory","name":"打开历史记录", "url":"chrome://history/"},
-	{"identification":"page-chromeOpenExtensions","name":"浏览器扩展", "url":"chrome://extensions/"}
+	{"identification":"page-openPluginSetting","name":"插件设置", "url":"setting.html"},
+	{"identification":"page-chromeOpenExtensions","name":"浏览器扩展", "url":"chrome://extensions/"},
+	{"identification":"page-chromeOpenSetting","name":"浏览器设置", "url":"chrome://settings/"}
 ];
 
 window.shortcutWebsite=[
@@ -23,7 +26,7 @@ window.shortcutWebsite=[
 ]
 
 
-//初始化数据------这里是一部操作，因此采用几步操作，以确保全部加载完成
+//初始化数据--------------------------------------------------
 var isInitComplete = 0;
 window.isInitComplete = 0;
 chrome.storage.sync.get(["selections"], function(result) {
@@ -32,7 +35,8 @@ chrome.storage.sync.get(["selections"], function(result) {
 	}else{
 		window.selections = result.selections;
 	}
-	window.isInitComplete = isInitComplete+1;
+	isInitComplete = isInitComplete + 1;
+	window.isInitComplete = isInitComplete;
 });
 
 chrome.storage.sync.get(["images"], function(result) {
@@ -41,7 +45,8 @@ chrome.storage.sync.get(["images"], function(result) {
 	}else{
 		window.images = result.images;
 	}
-	window.isInitComplete = isInitComplete+1;
+	isInitComplete = isInitComplete + 1;
+	window.isInitComplete = isInitComplete;
 });
 chrome.storage.sync.get(["links"], function(result) {
 	if(!result.links){
@@ -49,7 +54,8 @@ chrome.storage.sync.get(["links"], function(result) {
 	}else{
 		window.links = result.links;
 	}
-	window.isInitComplete = isInitComplete+1;
+	isInitComplete = isInitComplete + 1;
+	window.isInitComplete = isInitComplete;
 });
 chrome.storage.sync.get(["pages"], function(result) {
 	if(!result.pages){
@@ -57,6 +63,7 @@ chrome.storage.sync.get(["pages"], function(result) {
 	}else{
 		window.pages = result.pages;
 	}
-	window.isInitComplete = isInitComplete+1;
+	isInitComplete = isInitComplete + 1;
+	window.isInitComplete = isInitComplete;
 });
-//初始化数据------这里是一部操作，因此采用几步操作，以确保全部加载完成
+//初始化数据--------------------------------------------------

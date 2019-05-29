@@ -9,47 +9,37 @@ html {
 	overflow-y: hidden; 
 }
 
-.header-box{
-	background-color: #F5F5F5;
-	z-index: 9999;
+.setting-box{
+	position: absolute;
+    top: 0px;
+    bottom:0px;
+	width: 30px;
+	z-index: 99999;
+	background-color: #eee;
+}
+
+.setting-box .logo img{
+	width: 100%;
+}
+
+.setting-box .menu{
+	position:fixed;
+	bottom: 0px;
+}
+
+.setting-box .menu>.item{
+	width: 30px;
 	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	cursor: pointer;
 }
 
-.header-box .menu>ul {
-    list-style-type: none;
-    float: left;
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-}
-
-.header-box .menu>ul>li {
-    float: left;
-    display: inline-block;
-    padding: 0px 16px;
-    height: 30px;
-    line-height: 30px;
-}
-
-.header-box .menu>ul>li.active {
-    background-color: #5FA55A;
-}
-
-.header-box .menu>ul>li.active a {
-    color: #ffffff;
-}
-
-.header-box .menu>ul>li a {
-    font-size: 16px;
-    color: #666666;
-    text-decoration: none;
-    font-weight: 500;
-}
 .iframe-box{
     position: absolute;
-    top: 30px;
+    top: 0px;
     bottom:0px;
-    left: 0px;
+    left: 30px;
     right: 0px;
 }
 .iframe-navigation{

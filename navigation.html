@@ -8,24 +8,21 @@
 	<link rel="stylesheet" href="css/navigation.css" />
 </head>
 <body>
-	<div class="header-box">
-		<div class="container">
-			<div class="menu">
-		        <ul>
-					<li class="active"><a href="/">导航</a></li>
-					<li class=""><a href="/news">新闻</a></li>
-					<li>
-						<a href="https://www.facebook.com/ifanqiang/" target="blank">Facebook页面</a>
-					</li>
-					<li class="jump-setting-page">
-						<a href="https://github.com/ifanqiang-com/blocked-sites" target="blank">GitHub</a>
-					</li>
-		        </ul>
-		      </div>
+	<div class="setting-box">
+		<div class="logo">
+			<a id="logo-link" target="_top"><img src="img/logo.png"/></a>
+		</div>
+		<div class="menu">
+			<div class="item">
+				<span class="glyphicon glyphicon-paperclip open-plugin" title="打开链接"></span>
+			</div>
+			<div class="item">
+				<span class="glyphicon glyphicon-cog open-plugin-setting" title="插件设置" data-url="setting.html"></span>
+			</div>
 		</div>
 	</div>
 	<div class="iframe-box">
-		<iframe class="iframe-navigation" style="" allowtransparency="true" frameborder="0" src="http://127.0.0.1:8080/coolhii"></iframe>
+		<iframe class="iframe-navigation" id="iframe-navigation" style="" allowtransparency="true" frameborder="0"></iframe>
 	</div>
 </body>
 <script type="text/javascript" src="js/plugins/jquery-2.1.1.min.js" ></script>

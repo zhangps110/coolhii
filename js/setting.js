@@ -14,14 +14,32 @@ $(function(){
 	 * （右键菜单数据使用chrome.storage中的数据）
 	 *************************************************************/
 	
+	/*菜单切换*****************************************************/
+	$("html").css({
+		"overflow-x":"hidden",
+		"overflow-y":"hidden"
+	});
+	$("#plugin-home-iframe").attr("src", serverUrl+"plugin");
 	$("#header-ul li").on("click", function(){
 		$(this).parents("ul").find("li").removeClass("active");
-		$(this).addClass("active");
 		$(".show-box").hide();
 		var id=$(this).attr("id").split("-")[1];
+		if(id=="home"){
+			$("html").css({
+				"overflow-x":"hidden",
+				"overflow-y":"hidden"
+			});
+		}else{
+			$(this).addClass("active");
+			$("html").css({
+				"overflow-x":"hidden",
+				"overflow-y":"auto"
+			});
+		}
 		$("#"+id).show();
 	});
 	
+	//设置的数据全部来自于服务器
 	$.ajax({
 		"url":serverUrl + "menu/item",
 		"type":"POST",
